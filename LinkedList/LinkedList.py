@@ -58,9 +58,9 @@ class LinkedList:
 
         node = Node(value=value)
 
-        self.tail.set_next(node)
+        self.head.set_next(node)
 
-        self.tail = node
+        self.head = node
 
 
 
