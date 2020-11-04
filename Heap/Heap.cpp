@@ -20,16 +20,75 @@ class Heap{
 
         void remove();
 
+
+        void remove(int key);
         void insert(int data);
 
-        void heapify(int level);
+        void downheapify(int level);
 
-        void print();
+        void upheapify(int level);
+
+        void DecreaseKey(int key);
+
+        void printh();
+
+
+        bool hasLeft(int level);
+
+        bool hasRight(int level);
 
 };
-// 
 
-void Heap::heapify(int level)
+
+// Heapify down과 Heapyifyup으로 나눠줘야한다.
+
+// 특정 위치의 값을 삭제하기 위해서는  DecreaseKey가 필요하다.
+
+
+bool Heap::hasLeft(int level)
+{
+    return level*2 + 1< tree.size();
+}
+bool Heap::hasRight(int level)
+{
+    return level*2 + 2< tree.size();
+}
+void Heap::DecreaseKey(int key )
+{
+    tree[key] = INT_MIN;
+    while(key >= 0 && tree[key] < tree[key/2])
+    {
+        int temp = tree[key];
+        tree[key] = tree[key/2];
+        tree[key/2] = temp;
+        key = key/2;
+    }
+
+}
+
+
+void Heap::downheapify(int level)
+{
+    // int l = tree.size()-1;
+
+    if(!hasLeft(level)) return;
+
+    int smallest = level*2 +1;
+    if(!hasRight(level)) {
+        if(tree[smallest]  > tree[level*2+2]){
+            smallest= level*2 + 2 ;
+        }
+    }
+    if(tree[level] >tree[smallest]){
+        int temp = tree[level];
+        tree[level] = tree[smallest];
+        tree[smallest] = temp;
+        downheapify(smallest);
+    }
+
+    
+}
+void Heap::upheapify(int level)
 {
     // int l = tree.size()-1;
 
@@ -49,10 +108,8 @@ void Heap::heapify(int level)
             level=  level/2;
         }
     }
-    
-}
-
-void Heap::print()
+}  
+void Heap::printh()
 {
     for(auto c: tree){
         cout<<c<<" ";
@@ -60,6 +117,7 @@ void Heap::print()
 }
 
 void Heap::remove()
+// extract root
 {
     // 1. swap last and root element. then pop back last
     int temp = tree.front();
@@ -67,7 +125,19 @@ void Heap::remove()
     tree.back() =tree.front();
     tree.pop_back();
 
-    heapify(0);
+    downheapify(0);
+    
+}
+void Heap::remove(int key)
+{
+    // 1. swap last and root element. then pop back last
+    DecreaseKey(key);
+    int temp = tree.front();
+    tree.front() = tree.back();
+    tree.back() =tree.front();
+    tree.pop_back();
+
+    downheapify(0);
     
 }
 
@@ -76,7 +146,7 @@ void Heap::insert(int data)
 
     tree.push_back(data);
 
-    heapify(tree.size()-1);
+    upheapify(tree.size()-1);
     
 }
 
@@ -93,6 +163,7 @@ int main()
     h.insert(30);
     h.insert(9);
     h.insert(7);
-    h.print();
+    h.remove(3);
+    h.printh();
     return 0;
 }
