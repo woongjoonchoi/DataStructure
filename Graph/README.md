@@ -12,6 +12,9 @@
 
 ### 1. matrix
 
+![image](https://user-images.githubusercontent.com/50165842/98331453-f0358580-203f-11eb-8912-fc1799877e4f.png)
+
+
 공간 : V**2
 
 삭제 : O(1)
@@ -19,3 +22,4 @@
 
 vertex 삽입: O(V**2)
 ### 2. List
+![image](https://user-images.githubusercontent.com/50165842/98331478-fb88b100-203f-11eb-90c2-dc828bffa034.png)
