@@ -8,6 +8,33 @@
 #include <math.h>
 int getMid(int s, int e) { return s + (e -s)/2; }
 
+// diff: update 할 값
+// i: upadate 할 index
+// ss,se: 
+void ValueUpdateUtil(int st[],int diff, int i , int ss , int se)
+{
+    if(i<ss || i>se) return;
+    // if(i>=ss && i<=se){
+    //     st[i]+=diff;
+    //     return;
+    // }
+    st[i] +=diff;
+    // int mid = getMid(ss,se);
+
+    // 리프노드에 도달하면 자식노드가 없으므로 재귀적으로 할필요가없다.
+    if(ss!=se){
+        int mid = getMid(ss,se);
+        ValueUpdateUtil(st,diff,2*i,ss,mid);
+        ValueUpdateUtil(st,diff,2*i+1,mid+1,se);
+    }
+    return;
+}
+void ValueUpdate(int arr[],int st[],int new_val,int i ,int n)
+{
+    int diff = new_val - arr[i];
+    arr[i] = new_val;
+    return ValueUpdateUtil(st,diff,0,0,n-1);
+}
 int constructSegUtil(int arr[], int ss ,int se , int st[],int i)
 {
     if(ss==se) {
