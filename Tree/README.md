@@ -14,3 +14,15 @@
 0410    자소서쓰끼
 
 0411    업데이트도 recursive 이용
+
+
+# Tree
+
+
+## Tree란?
+
+
+## Query
+
+### Segment Tree
+
